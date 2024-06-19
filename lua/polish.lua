@@ -4,8 +4,16 @@
 
 vim.cmd.colorscheme "catppuccin"
 
+require("cmp").setup {
+  mapping = {
+    -- Unmap keys
+    ["<C-J>"] = function() end,
+    ["<C-K>"] = function() end,
+  },
+}
+
 vim.g.copilot_no_tab_map = true
-vim.api.nvim_set_keymap("i", "<C-.>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
+vim.api.nvim_set_keymap("i", "<C-J>", 'copilot#Accept("\\<CR>")', { silent = true, expr = true })
 
 local select_one_or_multi = function(prompt_bufnr)
   local picker = require("telescope.actions.state").get_current_picker(prompt_bufnr)
