@@ -24,6 +24,7 @@ return {
           ["<tab>"] = { ":normal %<cr>", desc = "Go to matching pair" },
           [",v"] = { "<C-v>", desc = "Enter visual block mode" },
           ["<F2>"] = { function() vim.lsp.buf.rename() end, desc = "Rename symbol" },
+          ["<Leader>,"] = { ':execute "cd " .. stdpath("config")<cr>', desc = "Rename symbol" },
 
           -- altered functionality
           [">"] = { ">>", desc = "Shift line right" },
