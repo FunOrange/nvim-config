@@ -10,12 +10,14 @@ return {
           ["<F4>"] = { ":TermExec cmd='npm run dev'<cr>", desc = "npm run dev" },
           ["gt"] = {
             function() require("astrocore.buffer").nav(vim.v.count1) end,
-            desc = "Next tab",
+            desc = "Next buffer",
           },
           ["gT"] = {
             function() require("astrocore.buffer").nav(-vim.v.count1) end,
-            desc = "Previous tab",
+            desc = "Previous buffer",
           },
+          ["<C-J>"] = { function() require("astrocore.buffer").nav(vim.v.count1) end, desc = "Next buffer" },
+          ["<C-K>"] = { function() require("astrocore.buffer").nav(-vim.v.count1) end, desc = "Previous buffer" },
           ["H"] = { "^", desc = "beginning of line" },
           ["L"] = { "$", desc = "end of line" },
           ["J"] = { "<C-e><C-e>", desc = "Scroll screen down" },
@@ -25,6 +27,7 @@ return {
           [",v"] = { "<C-v>", desc = "Enter visual block mode" },
           ["<F2>"] = { function() vim.lsp.buf.rename() end, desc = "Rename symbol" },
           ["<Leader>,"] = { ':execute "cd " .. stdpath("config")<cr>', desc = "Rename symbol" },
+          ["<Leader>u"] = { function() vim.cmd.UndotreeToggle() end, desc = "Undo tree" },
 
           -- altered functionality
           [">"] = { ">>", desc = "Shift line right" },
