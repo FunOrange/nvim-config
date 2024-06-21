@@ -23,7 +23,7 @@ return {
           ["J"] = { "<C-e><C-e>", desc = "Scroll screen down" },
           ["K"] = { "<C-y><C-y>", desc = "Scroll screen up" },
           ["Q"] = { "@q", desc = "Quick execute macro" },
-          ["<Tab>"] = { ":normal %<cr>", desc = "Go to matching pair" },
+          ["<Tab>"] = { "%", remap = true, desc = "Go to matching pair" },
           [",v"] = { "<C-v>", desc = "Enter visual block mode" },
           ["<F2>"] = { function() vim.lsp.buf.rename() end, desc = "Rename symbol" },
           ["<Leader>,"] = { ':execute "cd " .. stdpath("config")<cr>', desc = "Rename symbol" },
