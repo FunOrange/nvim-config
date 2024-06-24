@@ -49,3 +49,7 @@ require("telescope").setup {
     },
   },
 }
+
+vim.api.nvim_del_keymap("n", "gra")
+vim.api.nvim_del_keymap("n", "grn")
+vim.api.nvim_del_keymap("n", "grr")

@@ -26,10 +26,61 @@ return {
           ["<Tab>"] = { "%", remap = true, desc = "Go to matching pair" },
           [",v"] = { "<C-v>", desc = "Enter visual block mode" },
           ["<F2>"] = { function() vim.lsp.buf.rename() end, desc = "Rename symbol" },
-          ["<Leader>,"] = { ':execute "cd " .. stdpath("config")<cr>', desc = "Rename symbol" },
+          ["<Leader>,"] = { ':execute "cd " .. stdpath("config")<cr>', desc = "cd to nvim config" },
           ["<Leader>u"] = { function() vim.cmd.UndotreeToggle() end, desc = "Undo tree" },
+          ["<Leader>gf"] = { "<cmd>DiffviewFileHistory %<cr>", desc = "Show file history (git commits)" },
+          ["[c"] = {
+            function()
+              if vim.wo.diff then
+                vim.cmd.normal { "]c", bang = true }
+              else
+                require("gitsigns").nav_hunk "prev"
+              end
+            end,
+            desc = "Go to next git hunk",
+          },
+          ["]c"] = {
+            function()
+              if vim.wo.diff then
+                vim.cmd.normal { "]c", bang = true }
+              else
+                require("gitsigns").nav_hunk "next"
+              end
+            end,
+            desc = "Go to previous git hunk",
+          },
+          ["gr"] = {
+            function() vim.lsp.buf.references() end,
+            desc = "Show references",
+          },
+          ["<C-left>"] = {
+            ":cp<cr>",
+            desc = "Previous quickfix",
+          },
+          ["<C-right>"] = {
+            ":cn<cr>",
+            desc = "Next quickfix",
+          },
+          ["<Leader>z"] = { "<cmd>ZenMode<cr>", desc = "Show file history (git commits)" },
 
-          -- altered functionality
+          --- file shortcuts
+          [",es"] = {
+            function()
+              local os_name = vim.loop.os_uname().sysname
+              if os_name == "Windows_NT" then
+                vim.cmd "edit ~/scratch.txt"
+              elseif os_name == "Linux" then
+                vim.cmd "edit /mnt/c/Users/funor/scratch.txt"
+              end
+            end,
+            desc = "edit mappings",
+          },
+          [",ev"] = {
+            ':execute "edit " .. stdpath("config") .. "/lua/plugins/mappings.lua"<cr>',
+            desc = "edit mappings",
+          },
+
+          --- improved default functionality
           [">"] = { ">>", desc = "Shift line right" },
           ["<"] = { "<<", desc = "Shift line left" },
           ["n"] = { "nzz", desc = "Default function + re-center screen" },
@@ -54,7 +105,12 @@ return {
           ["H"] = { "^", desc = "beginning of line" },
           ["L"] = { "$", desc = "end of line" },
           ["<C-c>"] = { "y", desc = "Copy" },
-          ["<C-v>"] = { "P", desc = "Paste but don't clobber register" },
+          ["c"] = { "y", desc = "Copy" },
+          ["v"] = { "P", desc = "Paste (don't clobber register)" },
+        },
+        x = {
+          ["n"] = { "<Plug>(VM-Find-Subword-Under)", desc = "Expand multi cursor" },
+          ["v"] = { "P", remap = true, desc = "Paste (don't clobber register)" },
         },
         t = {
           ["<F1>"] = { "<C-\\><C-n>:ToggleTerm direction=float<cr>", desc = "npm run dev" },
