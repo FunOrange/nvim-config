@@ -5,7 +5,7 @@ return {
     opts = {
       mappings = {
         n = {
-          ["<C-p>"] = { function() require("telescope.builtin").find_files() end, desc = "Go to file" },
+          -- ["<C-p>"] = { function() require("telescope.builtin").find_files() end, desc = "Go to file" },
           ["<F1>"] = { ":ToggleTerm direction=float<cr>", desc = "Toggle floating terminal" },
           ["<F4>"] = { ":TermExec cmd='npm run dev'<cr>", desc = "npm run dev" },
           ["gt"] = {
