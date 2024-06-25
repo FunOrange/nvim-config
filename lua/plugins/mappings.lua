@@ -62,6 +62,8 @@ return {
             desc = "Next quickfix",
           },
           ["<Leader>z"] = { "<cmd>ZenMode<cr>", desc = "Show file history (git commits)" },
+          ["<Leader>x"] = { ":call VrcQuery()<cr>", desc = "Execute request" },
+          ["<Leader>G"] = { [[:let @+ = expand('%:~:.')<cr>]], desc = "Yank current file path" },
 
           --- file shortcuts
           [",es"] = {
