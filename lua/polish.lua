@@ -53,5 +53,7 @@ require("telescope").setup {
 vim.api.nvim_del_keymap("n", "gra")
 vim.api.nvim_del_keymap("n", "grn")
 vim.api.nvim_del_keymap("n", "grr")
+vim.api.nvim_set_keymap("n", "<C-right>", ":cn<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<C-left>", ":cp<CR>", { noremap = true, silent = true })
 
 vim.opt.swapfile = false

@@ -23,7 +23,6 @@ return {
           ["J"] = { "<C-e><C-e>", desc = "Scroll screen down" },
           ["K"] = { "<C-y><C-y>", desc = "Scroll screen up" },
           ["Q"] = { "@q", desc = "Quick execute macro" },
-          ["<Tab>"] = { "%", remap = true, desc = "Go to matching pair" },
           [",v"] = { "<C-v>", desc = "Enter visual block mode" },
           ["<F2>"] = { function() vim.lsp.buf.rename() end, desc = "Rename symbol" },
           ["<Leader>,"] = { ':execute "cd " .. stdpath("config")<cr>', desc = "cd to nvim config" },
@@ -53,19 +52,40 @@ return {
             function() vim.lsp.buf.references() end,
             desc = "Show references",
           },
-          ["<C-left>"] = {
-            ":cp<cr>",
-            desc = "Previous quickfix",
-          },
-          ["<C-right>"] = {
-            ":cn<cr>",
-            desc = "Next quickfix",
-          },
           ["<Leader>z"] = { "<cmd>ZenMode<cr>", desc = "Show file history (git commits)" },
           ["<Leader>x"] = { ":call VrcQuery()<cr>", desc = "Execute request" },
           ["<Leader>G"] = { [[:let @+ = expand('%:~:.')<cr>]], desc = "Yank current file path" },
           [";"] = { ":", desc = "Execute command" },
           [":"] = { ";", desc = "Repeat latest f, t, F or T" },
+          ["<C-i>"] = { "<C-i>", desc = "Repeat latest f, t, F or T" },
+
+          --- harpoon ---
+          ["<Leader>1"] = { function() require("harpoon.ui").nav_file(1) end, desc = "Harpoon navigate to file 1" },
+          ["<Leader>2"] = { function() require("harpoon.ui").nav_file(2) end, desc = "Harpoon navigate to file 2" },
+          ["<Leader>3"] = { function() require("harpoon.ui").nav_file(3) end, desc = "Harpoon navigate to file 3" },
+          ["<Leader>4"] = { function() require("harpoon.ui").nav_file(4) end, desc = "Harpoon navigate to file 4" },
+          ["<Leader>h"] = { function() require("harpoon.ui").toggle_quick_menu() end, desc = "Harpoon menu" },
+          ["<Leader>m"] = { function() require("harpoon.mark").add_file() end, desc = "Harpoon add" },
+          ["<Leader>bh"] = {
+            function()
+              local harpoon = require "harpoon.mark"
+              for _, buffer in ipairs(vim.api.nvim_list_bufs()) do
+                local modified = vim.bo[buffer].modified
+                local terminal = vim.bo[buffer].buftype == "terminal"
+                if vim.api.nvim_buf_is_loaded(buffer) and not modified and not terminal then
+                  if not vim.api.nvim_buf_delete(buffer, { force = false }) then print "Buffer not deleted" end
+                end
+              end
+              for idx = 1, harpoon.get_length() do
+                local filename = harpoon.get_marked_file_name(idx)
+                vim.cmd("edit " .. filename)
+              end
+            end,
+            desc = "Reset buffers",
+          },
+
+          --- chatgpt
+          ["<Leader>gpt"] = { function() require("chatgpt").openChat() end, desc = "ChatGPT" },
 
           --- file shortcuts
           [",es"] = {
@@ -111,6 +131,7 @@ return {
           ["<C-c>"] = { "y", desc = "Copy" },
           ["c"] = { "y", desc = "Copy" },
           ["v"] = { "P", desc = "Paste (don't clobber register)" },
+          ["<Leader>gpt"] = { function() require("chatgpt").edit_with_instructions() end, desc = "ChatGPT" },
         },
         x = {
           ["n"] = { "<Plug>(VM-Find-Subword-Under)", desc = "Expand multi cursor" },
