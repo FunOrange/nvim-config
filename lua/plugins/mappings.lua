@@ -52,12 +52,29 @@ return {
             function() vim.lsp.buf.references() end,
             desc = "Show references",
           },
-          ["<Leader>z"] = { "<cmd>ZenMode<cr>", desc = "Show file history (git commits)" },
-          ["<Leader>x"] = { ":call VrcQuery()<cr>", desc = "Execute request" },
+          ["<Leader>x"] = { "<cmd>!bun run %<cr>", desc = "bun run" },
+          ["<Leader>X"] = {
+            function()
+              local current_file = vim.fn.expand "%"
+              local command = "bun run " .. current_file
+              local handle = io.popen(command)
+              local result = handle:read "*a"
+              handle:close()
+
+              -- Create a new buffer in a vertical split
+              vim.cmd "vnew"
+              local bufnr = vim.api.nvim_get_current_buf()
+              -- Set the buffer content to the command output
+              vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, vim.split(result, "\n"))
+            end,
+            desc = "bun run and open output in a new buffer",
+          },
+          ["<Leader>z"] = { "<cmd>ZenMode<cr>", desc = "Zen mode" },
           ["<Leader>G"] = { [[:let @+ = expand('%:~:.')<cr>]], desc = "Yank current file path" },
           [";"] = { ":", desc = "Execute command" },
           [":"] = { ";", desc = "Repeat latest f, t, F or T" },
           ["<C-i>"] = { "<C-i>", desc = "Repeat latest f, t, F or T" },
+          ["?"] = { "/\\M", desc = "Search backward, no regex" },
 
           --- harpoon ---
           ["<Leader>1"] = { function() require("harpoon.ui").nav_file(1) end, desc = "Harpoon navigate to file 1" },

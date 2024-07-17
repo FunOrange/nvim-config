@@ -57,3 +57,11 @@ vim.api.nvim_set_keymap("n", "<C-right>", ":cn<CR>", { noremap = true, silent = 
 vim.api.nvim_set_keymap("n", "<C-left>", ":cp<CR>", { noremap = true, silent = true })
 
 vim.opt.swapfile = false
+
+vim.api.nvim_create_user_command("OrganizeImports", function()
+  local params = {
+    command = "_typescript.organizeImports",
+    arguments = { vim.api.nvim_buf_get_name(0) },
+  }
+  vim.lsp.buf.execute_command(params)
+end, {})
