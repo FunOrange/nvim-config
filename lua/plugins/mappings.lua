@@ -142,6 +142,8 @@ return {
               local os_name = vim.loop.os_uname().sysname
               if os_name == "Windows_NT" then
                 vim.cmd "edit ~/scratch.txt"
+              elseif os_name == "Darwin" then
+                vim.cmd "edit ~/windows/scratch.txt"
               elseif os_name == "Linux" then
                 vim.cmd "edit /mnt/c/Users/funor/scratch.txt"
               end
