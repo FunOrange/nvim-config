@@ -65,3 +65,14 @@ vim.api.nvim_create_user_command("OrganizeImports", function()
   }
   vim.lsp.buf.execute_command(params)
 end, {})
+
+-- Disable matchparen plugin
+vim.g.loaded_matchparen = 1
+
+-- title = cwd
+vim.opt.title = true
+vim.opt.titlestring = "%{getcwd()}"
+vim.api.nvim_create_autocmd("DirChanged", {
+  pattern = "*",
+  callback = function() vim.opt.titlestring = vim.fn.getcwd() end,
+})

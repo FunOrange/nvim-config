@@ -3,7 +3,11 @@ return {
     "catppuccin/nvim",
     name = "catppuccin",
     opts = {
-      dim_inactive = { enabled = true, percentage = 0.25 },
+      dim_inactive = {
+        enabled = true,
+        shade = "dark",
+        percentage = 0.50,
+      },
       highlight_overrides = {
         mocha = function(c)
           return {
@@ -12,13 +16,6 @@ return {
             ["@tag.attribute"] = { style = {} },
           }
         end,
-      },
-      color_overrides = {
-        mocha = {
-          base = "#000000",
-          mantle = "#000000",
-          crust = "#000000",
-        },
       },
     },
   },

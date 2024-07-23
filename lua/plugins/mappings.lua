@@ -152,18 +152,6 @@ return {
             ':execute "edit " .. stdpath("config") .. "/lua/plugins/mappings.lua"<cr>',
             desc = "edit mappings",
           },
-
-          --- improved default functionality
-          [">"] = { ">>", desc = "Shift line right" },
-          ["<"] = { "<<", desc = "Shift line left" },
-          ["n"] = { "nzz", desc = "Default function + re-center screen" },
-          ["N"] = { "Nzz", desc = "Default function + re-center screen" },
-          ["{"] = { "{zz", desc = "Default function + re-center screen" },
-          ["}"] = { "}zz", desc = "Default function + re-center screen" },
-          ["*"] = { "*zz", desc = "Default function + re-center screen" },
-          ["#"] = { "#zz", desc = "Default function + re-center screen" },
-          ["%"] = { "%zz", desc = "Default function + re-center screen" },
-          ["<C-d>"] = { "<C-d>zz", desc = "Default function + re-center screen" },
         },
         i = {
           ["<Tab>"] = {

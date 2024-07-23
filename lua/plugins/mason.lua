@@ -1,4 +1,24 @@
-if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
+-- if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
+
+function print_table(tbl, indent)
+  indent = indent or 0
+  local formatting = string.rep("  ", indent)
+
+  for key, value in pairs(tbl) do
+    if type(value) == "table" then
+      print(formatting .. tostring(key) .. ":")
+      print_table(value, indent + 1)
+    else
+      print(formatting .. tostring(key) .. ": " .. tostring(value))
+    end
+  end
+end
+
+function remove_string_from_list(list, str)
+  for i = #list, 1, -1 do
+    if list[i] == str then table.remove(list, i) end
+  end
+end
 
 -- Customize Mason plugins
 
@@ -8,32 +28,13 @@ return {
   {
     "williamboman/mason-lspconfig.nvim",
     -- overrides `require("mason-lspconfig").setup(...)`
-    opts = {
-      ensure_installed = {
-        "lua_ls",
-        -- add more arguments for adding more language servers
-      },
-    },
-  },
-  -- use mason-null-ls to configure Formatters/Linter installation for null-ls sources
-  {
-    "jay-babu/mason-null-ls.nvim",
-    -- overrides `require("mason-null-ls").setup(...)`
-    opts = {
-      ensure_installed = {
-        "stylua",
-        -- add more arguments for adding more null-ls sources
-      },
-    },
-  },
-  {
-    "jay-babu/mason-nvim-dap.nvim",
-    -- overrides `require("mason-nvim-dap").setup(...)`
-    opts = {
-      ensure_installed = {
-        "python",
-        -- add more arguments for adding more debuggers
-      },
-    },
+    opts = function(_, opts)
+      print "ensure_installed (before):"
+      print_table(opts.ensure_installed)
+
+      remove_string_from_list(opts.ensure_installed, "emmet_ls")
+      print "ensure_installed (after):"
+      print_table(opts.ensure_installed)
+    end,
   },
 }
