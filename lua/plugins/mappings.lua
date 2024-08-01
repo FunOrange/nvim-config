@@ -5,7 +5,6 @@ return {
     opts = {
       mappings = {
         n = {
-          -- ["<C-p>"] = { function() require("telescope.builtin").find_files() end, desc = "Go to file" },
           ["<F1>"] = { ":ToggleTerm direction=float<cr>", desc = "Toggle floating terminal" },
           ["<F4>"] = { ":TermExec cmd='npm run dev'<cr>", desc = "npm run dev" },
           ["gt"] = {
@@ -16,8 +15,6 @@ return {
             function() require("astrocore.buffer").nav(-vim.v.count1) end,
             desc = "Previous buffer",
           },
-          ["<C-J>"] = { function() require("astrocore.buffer").nav(vim.v.count1) end, desc = "Next buffer" },
-          ["<C-K>"] = { function() require("astrocore.buffer").nav(-vim.v.count1) end, desc = "Previous buffer" },
           ["H"] = { "^", desc = "beginning of line" },
           ["L"] = { "$", desc = "end of line" },
           ["J"] = { "<C-e><C-e>", desc = "Scroll screen down" },
@@ -107,6 +104,8 @@ return {
           ["zf7"] = { "<cmd>set foldlevel=7<cr>", desc = "Fold level 7" },
           ["zf8"] = { "<cmd>set foldlevel=8<cr>", desc = "Fold level 8" },
           ["zf9"] = { "<cmd>set foldlevel=9<cr>", desc = "Fold level 9" },
+          ["<left>"] = { "<cmd>:cp<cr>", desc = "Previous quickfix item" },
+          ["<right>"] = { "<cmd>:cn<cr>", desc = "Next quickfix item" },
 
           --- harpoon ---
           ["<Leader>1"] = { function() require("harpoon.ui").nav_file(1) end, desc = "Harpoon navigate to file 1" },
