@@ -32,9 +32,13 @@ return {
         -- "lua_ls",
       },
       timeout_ms = 1000, -- default format timeout
-      -- filter = function(client) -- fully override the default formatting function
-      --   return true
-      -- end
+      filter = function(client) -- fully override the default formatting function
+        if vim.bo.filetype == "typescriptreact" then
+          return client.name == "null-ls"
+        else
+          return true
+        end
+      end,
     },
     -- enable servers that you already have installed without mason
     servers = {
