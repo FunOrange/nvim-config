@@ -33,8 +33,8 @@ return {
       },
       timeout_ms = 1000, -- default format timeout
       filter = function(client) -- fully override the default formatting function
-        if vim.bo.filetype == "typescriptreact" then
-          return client.name == "null-ls"
+        if vim.bo.filetype == "typescriptreact" or vim.bo.filetype == "typescript" then
+          return client.name == "null-ls" -- prettierd
         else
           return true
         end
