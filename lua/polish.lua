@@ -2,7 +2,20 @@
 -- things like custom filetypes. This just pure lua so anything that doesn't
 -- fit in the normal config locations above can go here
 
-vim.cmd.colorscheme "catppuccin"
+local get_system_colorscheme = function()
+  local handle = io.popen "~/scripts/get_system_colorscheme.sh"
+  if handle == nil then return "dark" end
+  local result = handle:read "*a"
+  handle:close()
+  result = result:gsub("%s+", "") -- Trim any trailing newlines or spaces
+  return result
+end
+
+if get_system_colorscheme() == "dark" then
+  vim.cmd.colorscheme "catppuccin"
+else
+  vim.cmd.colorscheme "astrolight"
+end
 
 local cmp = require "cmp"
 cmp.setup {
