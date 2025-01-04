@@ -3,7 +3,8 @@
 -- fit in the normal config locations above can go here
 
 local get_system_colorscheme = function()
-  local handle = io.popen "~/scripts/get_system_colorscheme.sh"
+  local home = os.getenv "HOME" or os.getenv "USERPROFILE"
+  local handle = io.popen(home .. "/scripts/get_system_colorscheme.sh")
   if handle == nil then return "dark" end
   local result = handle:read "*a"
   handle:close()
@@ -11,10 +12,10 @@ local get_system_colorscheme = function()
   return result
 end
 
-if get_system_colorscheme() == "dark" then
-  vim.cmd.colorscheme "catppuccin"
-else
+if get_system_colorscheme() == "light" then
   vim.cmd.colorscheme "astrolight"
+else
+  vim.cmd.colorscheme "catppuccin"
 end
 
 local cmp = require "cmp"
