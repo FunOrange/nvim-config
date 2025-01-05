@@ -15,6 +15,8 @@ return {
             function() require("astrocore.buffer").nav(-vim.v.count1) end,
             desc = "Previous buffer",
           },
+          [",<ESC>"] = { ":w<CR>", desc = "Save file" },
+          [",s"] = { ":w<CR>", desc = "Save file" },
           ["H"] = { "^", desc = "beginning of line" },
           ["L"] = { "$", desc = "end of line" },
           ["J"] = { "<C-e><C-e>", desc = "Scroll screen down" },
@@ -136,13 +138,14 @@ return {
           ["<Leader>gpt"] = { function() require("chatgpt").openChat() end, desc = "ChatGPT" },
 
           --- file shortcuts
+          ["<C-p>"] = { function() require("telescope.builtin").find_files() end, desc = "Find files" },
           [",es"] = {
             function()
               local os_name = vim.loop.os_uname().sysname
               if os_name == "Windows_NT" then
                 vim.cmd "edit ~/scratch.txt"
               elseif os_name == "Darwin" then
-                vim.cmd "edit ~/windows/scratch.txt"
+                vim.cmd "edit ~/scratch.txt"
               elseif os_name == "Linux" then
                 vim.cmd "edit /mnt/c/Users/funor/scratch.txt"
               end
