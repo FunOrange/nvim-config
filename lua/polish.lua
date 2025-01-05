@@ -3,7 +3,8 @@
 -- fit in the normal config locations above can go here
 
 local get_system_colorscheme = function()
-  local handle = io.popen "~/scripts/get_system_colorscheme.sh"
+  local home = os.getenv "HOME" or os.getenv "USERPROFILE"
+  local handle = io.popen(home .. "/scripts/get_system_colorscheme.sh")
   if handle == nil then return "dark" end
   local result = handle:read "*a"
   handle:close()
