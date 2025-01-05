@@ -12,10 +12,10 @@ local get_system_colorscheme = function()
   return result
 end
 
-if get_system_colorscheme() == "dark" then
+if get_system_colorscheme() == "light" then
   vim.cmd.colorscheme "catppuccin-mocha"
 else
-  vim.cmd.colorscheme "catppuccin-latte"
+  vim.cmd.colorscheme "catppuccin-mocha"
 end
 
 local cmp = require "cmp"
