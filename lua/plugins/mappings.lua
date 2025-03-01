@@ -97,6 +97,7 @@ return {
           [":"] = { ";", desc = "Repeat latest f, t, F or T" },
           ["<C-i>"] = { "<C-i>", desc = "Repeat latest f, t, F or T" },
           ["?"] = { "/\\M", desc = "Search backward, no regex" },
+          ["zf0"] = { "zR", desc = "Reset folds" },
           ["zf1"] = { "<cmd>set foldlevel=1<cr>", desc = "Fold level 1" },
           ["zf2"] = { "<cmd>set foldlevel=2<cr>", desc = "Fold level 2" },
           ["zf3"] = { "<cmd>set foldlevel=3<cr>", desc = "Fold level 3" },
@@ -108,34 +109,6 @@ return {
           ["zf9"] = { "<cmd>set foldlevel=9<cr>", desc = "Fold level 9" },
           ["<left>"] = { "<cmd>:cp<cr>", desc = "Previous quickfix item" },
           ["<right>"] = { "<cmd>:cn<cr>", desc = "Next quickfix item" },
-
-          --- harpoon ---
-          ["<Leader>1"] = { function() require("harpoon.ui").nav_file(1) end, desc = "Harpoon navigate to file 1" },
-          ["<Leader>2"] = { function() require("harpoon.ui").nav_file(2) end, desc = "Harpoon navigate to file 2" },
-          ["<Leader>3"] = { function() require("harpoon.ui").nav_file(3) end, desc = "Harpoon navigate to file 3" },
-          ["<Leader>4"] = { function() require("harpoon.ui").nav_file(4) end, desc = "Harpoon navigate to file 4" },
-          ["<Leader>h"] = { function() require("harpoon.ui").toggle_quick_menu() end, desc = "Harpoon menu" },
-          ["<Leader>m"] = { function() require("harpoon.mark").add_file() end, desc = "Harpoon add" },
-          ["<Leader>bh"] = {
-            function()
-              local harpoon = require "harpoon.mark"
-              for _, buffer in ipairs(vim.api.nvim_list_bufs()) do
-                local modified = vim.bo[buffer].modified
-                local terminal = vim.bo[buffer].buftype == "terminal"
-                if vim.api.nvim_buf_is_loaded(buffer) and not modified and not terminal then
-                  if not vim.api.nvim_buf_delete(buffer, { force = false }) then print "Buffer not deleted" end
-                end
-              end
-              for idx = 1, harpoon.get_length() do
-                local filename = harpoon.get_marked_file_name(idx)
-                vim.cmd("edit " .. filename)
-              end
-            end,
-            desc = "Reset buffers",
-          },
-
-          --- chatgpt
-          ["<Leader>gpt"] = { function() require("chatgpt").openChat() end, desc = "ChatGPT" },
 
           --- file shortcuts
           ["<C-p>"] = { function() require("telescope.builtin").find_files() end, desc = "Find files" },
@@ -155,6 +128,10 @@ return {
           [",ev"] = {
             ':execute "edit " .. stdpath("config") .. "/lua/plugins/mappings.lua"<cr>',
             desc = "edit mappings",
+          },
+          [",env"] = {
+            ':execute "edit .env.local"<cr>',
+            desc = "edit .env.local",
           },
         },
         i = {
