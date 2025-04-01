@@ -90,3 +90,7 @@ vim.api.nvim_create_autocmd("DirChanged", {
   pattern = "*",
   callback = function() vim.opt.titlestring = vim.fn.getcwd() end,
 })
+
+-- console.log variable
+local esc = vim.api.nvim_replace_termcodes("<Esc>", true, false, true)
+vim.fn.setreg("l", "oconsole.log('" .. esc .. "pa:', " .. esc .. "pa);" .. esc .. "")
