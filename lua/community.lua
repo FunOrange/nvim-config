@@ -6,9 +6,8 @@
 return {
   "AstroNvim/astrocommunity",
   { import = "astrocommunity.pack.lua" },
-  { import = "astrocommunity.pack.typescript" },
-  { import = "astrocommunity.pack.json" },
-  { import = "astrocommunity.pack.tailwindcss" },
-  { import = "astrocommunity.colorscheme.vscode-nvim" },
+  { import = "astrocommunity.pack.zig" },
+  -- { import = "astrocommunity.pack.json" },
+  -- { import = "astrocommunity.pack.tailwindcss" },
   -- import/override with your plugins folder
 }
