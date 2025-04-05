@@ -1,3 +1,7 @@
+local function save_if_modified()
+  if vim.bo.modified then vim.cmd "write" end
+end
+
 return {
   {
     "AstroNvim/astrocore",
@@ -16,8 +20,7 @@ return {
             function() require("astrocore.buffer").nav(-vim.v.count1) end,
             desc = "Previous buffer",
           },
-          [",<ESC>"] = { ":w<CR>", desc = "Save file" },
-          [",s"] = { ":w<CR>", desc = "Save file" },
+          [",s"] = { save_if_modified, desc = "Save file" },
           ["H"] = { "^", desc = "beginning of line" },
           ["L"] = { "$", desc = "end of line" },
           ["J"] = { "<C-e><C-e>", desc = "Scroll screen down" },
@@ -39,7 +42,7 @@ return {
             end,
             desc = "bun run",
           },
-          ["<Leader>X"] = {
+          [",B"] = {
             function()
               vim.cmd "w"
               local current_file = vim.fn.expand "%"
