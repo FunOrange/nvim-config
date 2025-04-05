@@ -54,42 +54,16 @@ return {
           ["<Leader>x"] = {
             function()
               vim.cmd "w"
-              vim.cmd "!bun run %"
+              vim.cmd "make"
             end,
-            desc = "bun run",
+            desc = "save and make",
           },
           ["<Leader>X"] = {
             function()
               vim.cmd "w"
-              local current_file = vim.fn.expand "%"
-              local command = "bun run " .. current_file
-              local handle = io.popen(command)
-              local cmd_output = handle:read "*a"
-              handle:close()
-
-              -- Function to find an existing "Untitled" buffer
-              local function find_untitled_buffer()
-                for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
-                  local buf_path = vim.api.nvim_buf_get_name(bufnr)
-                  local buf_name = buf_path:match "^.+/(.+)$"
-                  local buf_loaded = vim.api.nvim_buf_is_loaded(bufnr)
-                  if buf_name == "Untitled.json" and buf_loaded then return bufnr end
-                end
-                return nil
-              end
-
-              local bufnr = find_untitled_buffer()
-              if bufnr then
-                -- If an "Untitled" buffer exists, use it
-              else
-                -- Otherwise, create a new buffer in a vertical split
-                vim.cmd "vnew Untitled.json"
-                bufnr = vim.api.nvim_get_current_buf()
-              end
-              -- Set the buffer content to the command output
-              vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, vim.split(cmd_output, "\n"))
+              vim.cmd "make run"
             end,
-            desc = "bun run and open output in a new buffer",
+            desc = "save and make run",
           },
           ["<Leader>z"] = { "<cmd>ZenMode<cr>", desc = "Zen mode" },
           ["<Leader>G"] = { [[:let @+ = expand('%:~:.')<cr>]], desc = "Yank current file path" },
