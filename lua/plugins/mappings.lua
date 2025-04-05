@@ -6,6 +6,7 @@ return {
       mappings = {
         n = {
           ["<F1>"] = { ":ToggleTerm direction=float<cr>", desc = "Toggle floating terminal" },
+          ["<Leader>gg"] = false, -- <Leader>tl is the only way to open lazygit
           ["<F4>"] = { ":TermExec cmd='npm run dev'<cr>", desc = "npm run dev" },
           ["gt"] = {
             function() require("astrocore.buffer").nav(vim.v.count1) end,
