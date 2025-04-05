@@ -27,26 +27,6 @@ return {
           ["<Leader>,"] = { ':execute "cd " .. stdpath("config")<cr>', desc = "cd to nvim config" },
           ["<Leader>u"] = { function() vim.cmd.UndotreeToggle() end, desc = "Undo tree" },
           ["<Leader>gf"] = { "<cmd>DiffviewFileHistory %<cr>", desc = "Show file history (git commits)" },
-          ["[c"] = {
-            function()
-              if vim.wo.diff then
-                vim.cmd.normal { "]c", bang = true }
-              else
-                require("gitsigns").nav_hunk "prev"
-              end
-            end,
-            desc = "Go to next git hunk",
-          },
-          ["]c"] = {
-            function()
-              if vim.wo.diff then
-                vim.cmd.normal { "]c", bang = true }
-              else
-                require("gitsigns").nav_hunk "next"
-              end
-            end,
-            desc = "Go to previous git hunk",
-          },
           ["gr"] = {
             function() vim.lsp.buf.references() end,
             desc = "Show references",
