@@ -32,7 +32,17 @@ return {
 
           --- misc ---
           ["<F1>"] = { ":ToggleTerm direction=float<cr>", desc = "Toggle floating terminal" },
-          ["<Leader>gg"] = false, -- <Leader>tl is the only way to open lazygit
+          ["<Leader>gg"] = false, -- ,g is the only way to open lazygit
+          [",g"] = {
+            function()
+              local astro = require "astrocore"
+              local worktree = astro.file_worktree()
+              local flags = worktree and (" --work-tree=%s --git-dir=%s"):format(worktree.toplevel, worktree.gitdir)
+                or ""
+              astro.toggle_term_cmd("lazygit " .. flags)
+            end,
+            desc = "Open LazyGit in floating terminal",
+          },
           ["<F2>"] = { function() vim.lsp.buf.rename() end, desc = "Rename symbol" },
           ["<Leader>gf"] = { "<cmd>DiffviewFileHistory %<cr>", desc = "Show file history (git commits)" },
           ["gr"] = {
