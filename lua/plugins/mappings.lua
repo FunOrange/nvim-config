@@ -9,9 +9,7 @@ return {
     opts = {
       mappings = {
         n = {
-          ["<F1>"] = { ":ToggleTerm direction=float<cr>", desc = "Toggle floating terminal" },
-          ["<Leader>gg"] = false, -- <Leader>tl is the only way to open lazygit
-          ["<F4>"] = { ":TermExec cmd='npm run dev'<cr>", desc = "npm run dev" },
+          --- navigation ---
           ["gt"] = {
             function() require("astrocore.buffer").nav(vim.v.count1) end,
             desc = "Next buffer",
@@ -27,9 +25,15 @@ return {
           ["K"] = { "<C-y><C-y>", desc = "Scroll screen up" },
           ["Q"] = { "@q", desc = "Quick execute macro" },
           [",v"] = { "<C-v>", desc = "Enter visual block mode" },
+          ["<C-i>"] = { "<C-i>", desc = "Next in jump list" },
+          ["<left>"] = { "<cmd>:cp<cr>", desc = "Previous quickfix item" },
+          ["<right>"] = { "<cmd>:cn<cr>", desc = "Next quickfix item" },
+          ------------------
+
+          --- misc ---
+          ["<F1>"] = { ":ToggleTerm direction=float<cr>", desc = "Toggle floating terminal" },
+          ["<Leader>gg"] = false, -- <Leader>tl is the only way to open lazygit
           ["<F2>"] = { function() vim.lsp.buf.rename() end, desc = "Rename symbol" },
-          ["<Leader>,"] = { ':execute "cd " .. stdpath("config")<cr>', desc = "cd to nvim config" },
-          ["<Leader>u"] = { function() vim.cmd.UndotreeToggle() end, desc = "Undo tree" },
           ["<Leader>gf"] = { "<cmd>DiffviewFileHistory %<cr>", desc = "Show file history (git commits)" },
           ["gr"] = {
             function() vim.lsp.buf.references() end,
@@ -77,10 +81,6 @@ return {
           },
           ["<Leader>z"] = { "<cmd>ZenMode<cr>", desc = "Zen mode" },
           ["<Leader>G"] = { [[:let @+ = expand('%:~:.')<cr>]], desc = "Yank current file path" },
-          [";"] = { ":", desc = "Execute command" },
-          [":"] = { ";", desc = "Repeat latest f, t, F or T" },
-          ["<C-i>"] = { "<C-i>", desc = "Repeat latest f, t, F or T" },
-          ["?"] = { "/\\M", desc = "Search backward, no regex" },
           ["zf0"] = { "zR", desc = "Reset folds" },
           ["zf1"] = { "<cmd>set foldlevel=1<cr>", desc = "Fold level 1" },
           ["zf2"] = { "<cmd>set foldlevel=2<cr>", desc = "Fold level 2" },
@@ -96,7 +96,37 @@ return {
           ["<right>"] = { "<cmd>:cn<cr>", desc = "Next quickfix item" },
           [",d"] = { "<cmd>:cn<cr>", desc = "Next quickfix item" },
 
-          --- file shortcuts
+          --- execution ---
+          [",t"] = {
+            function()
+              vim.cmd "w"
+              vim.cmd "!zig test %"
+            end,
+            desc = "zig test",
+          },
+          [",m"] = {
+            function()
+              save_if_modified()
+              vim.cmd "make"
+            end,
+            desc = "save and make",
+          },
+          [",r"] = {
+            function()
+              save_if_modified()
+              vim.cmd "make run"
+            end,
+            desc = "save and make run",
+          },
+          -----------------
+
+          --- swap ; and : ---
+          [";"] = { ":", desc = "Enter command mode" },
+          [":"] = { ";", desc = "Repeat latest f, t, F or T" },
+          --------------------
+
+          --- file/dir shortcuts ---
+          ["<C-,>"] = { ':execute "cd " .. stdpath("config")<cr>', desc = "cd to nvim config" },
           ["<C-p>"] = { function() require("telescope.builtin").find_files() end, desc = "Find files" },
           [",es"] = {
             function()
@@ -109,23 +139,15 @@ return {
                 vim.cmd "edit /mnt/c/Users/funor/scratch.txt"
               end
             end,
-            desc = "edit mappings",
+            desc = "edit scratch",
           },
           [",ev"] = {
             ':execute "edit " .. stdpath("config") .. "/lua/plugins/mappings.lua"<cr>',
             desc = "edit mappings",
           },
-          [",env"] = {
-            ':execute "edit .env.local"<cr>',
-            desc = "edit .env.local",
-          },
+          --------------------------
         },
         i = {
-          ["<Tab>"] = {
-            function() return vim.fn["copilot#Accept"]() end,
-            expr = true,
-            desc = "Copilot autocomplete",
-          },
           ["<C-l>"] = { function() require("luasnip").jump(1) end, desc = "Jump to next snippet placeholder" },
           ["<C-h>"] = { function() require("luasnip").jump(-1) end, desc = "Jump to previous snippet placeholder" },
         },
