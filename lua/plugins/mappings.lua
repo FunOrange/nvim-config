@@ -49,16 +49,33 @@ return {
             function() vim.lsp.buf.references() end,
             desc = "Show references",
           },
-          ["<Leader>x"] = {
+          ["<Leader>G"] = { [[:let @+ = expand('%:~:.')<cr>]], desc = "Yank current file path" },
+          ["zf0"] = { "zR", desc = "Reset folds" },
+          ["zf1"] = { "<cmd>set foldlevel=1<cr>", desc = "Fold level 1" },
+          ["zf2"] = { "<cmd>set foldlevel=2<cr>", desc = "Fold level 2" },
+          ["zf3"] = { "<cmd>set foldlevel=3<cr>", desc = "Fold level 3" },
+          ["zf4"] = { "<cmd>set foldlevel=4<cr>", desc = "Fold level 4" },
+          ["zf5"] = { "<cmd>set foldlevel=5<cr>", desc = "Fold level 5" },
+          ["zf6"] = { "<cmd>set foldlevel=6<cr>", desc = "Fold level 6" },
+          ["zf7"] = { "<cmd>set foldlevel=7<cr>", desc = "Fold level 7" },
+          ["zf8"] = { "<cmd>set foldlevel=8<cr>", desc = "Fold level 8" },
+          ["zf9"] = { "<cmd>set foldlevel=9<cr>", desc = "Fold level 9" },
+          ["<left>"] = { "<cmd>:cp<cr>", desc = "Previous quickfix item" },
+          [",a"] = { "<cmd>:cp<cr>", desc = "Previous quickfix item" },
+          ["<right>"] = { "<cmd>:cn<cr>", desc = "Next quickfix item" },
+          [",d"] = { "<cmd>:cn<cr>", desc = "Next quickfix item" },
+
+          --- run/build/make/test ---
+          [",r"] = {
             function()
-              vim.cmd "w"
+              save_if_modified()
               vim.cmd "!bun run %"
             end,
             desc = "bun run",
           },
-          [",B"] = {
+          [",R"] = {
             function()
-              vim.cmd "w"
+              save_if_modified()
               local current_file = vim.fn.expand "%"
               local command = "bun run " .. current_file
               local handle = io.popen(command)
@@ -88,45 +105,6 @@ return {
               vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, vim.split(cmd_output, "\n"))
             end,
             desc = "bun run and open output in a new buffer",
-          },
-          ["<Leader>z"] = { "<cmd>ZenMode<cr>", desc = "Zen mode" },
-          ["<Leader>G"] = { [[:let @+ = expand('%:~:.')<cr>]], desc = "Yank current file path" },
-          ["zf0"] = { "zR", desc = "Reset folds" },
-          ["zf1"] = { "<cmd>set foldlevel=1<cr>", desc = "Fold level 1" },
-          ["zf2"] = { "<cmd>set foldlevel=2<cr>", desc = "Fold level 2" },
-          ["zf3"] = { "<cmd>set foldlevel=3<cr>", desc = "Fold level 3" },
-          ["zf4"] = { "<cmd>set foldlevel=4<cr>", desc = "Fold level 4" },
-          ["zf5"] = { "<cmd>set foldlevel=5<cr>", desc = "Fold level 5" },
-          ["zf6"] = { "<cmd>set foldlevel=6<cr>", desc = "Fold level 6" },
-          ["zf7"] = { "<cmd>set foldlevel=7<cr>", desc = "Fold level 7" },
-          ["zf8"] = { "<cmd>set foldlevel=8<cr>", desc = "Fold level 8" },
-          ["zf9"] = { "<cmd>set foldlevel=9<cr>", desc = "Fold level 9" },
-          ["<left>"] = { "<cmd>:cp<cr>", desc = "Previous quickfix item" },
-          [",a"] = { "<cmd>:cp<cr>", desc = "Previous quickfix item" },
-          ["<right>"] = { "<cmd>:cn<cr>", desc = "Next quickfix item" },
-          [",d"] = { "<cmd>:cn<cr>", desc = "Next quickfix item" },
-
-          --- execution ---
-          [",t"] = {
-            function()
-              vim.cmd "w"
-              vim.cmd "!zig test %"
-            end,
-            desc = "zig test",
-          },
-          [",m"] = {
-            function()
-              save_if_modified()
-              vim.cmd "make"
-            end,
-            desc = "save and make",
-          },
-          [",r"] = {
-            function()
-              save_if_modified()
-              vim.cmd "make run"
-            end,
-            desc = "save and make run",
           },
           -----------------
 
