@@ -6,6 +6,7 @@ return {
       mappings = {
         n = {
           ["<F1>"] = { ":ToggleTerm direction=float<cr>", desc = "Toggle floating terminal" },
+          ["<Leader>gg"] = false, -- <Leader>tl is the only way to open lazygit
           ["<F4>"] = { ":TermExec cmd='npm run dev'<cr>", desc = "npm run dev" },
           ["gt"] = {
             function() require("astrocore.buffer").nav(vim.v.count1) end,
@@ -27,26 +28,6 @@ return {
           ["<Leader>,"] = { ':execute "cd " .. stdpath("config")<cr>', desc = "cd to nvim config" },
           ["<Leader>u"] = { function() vim.cmd.UndotreeToggle() end, desc = "Undo tree" },
           ["<Leader>gf"] = { "<cmd>DiffviewFileHistory %<cr>", desc = "Show file history (git commits)" },
-          ["[c"] = {
-            function()
-              if vim.wo.diff then
-                vim.cmd.normal { "]c", bang = true }
-              else
-                require("gitsigns").nav_hunk "prev"
-              end
-            end,
-            desc = "Go to next git hunk",
-          },
-          ["]c"] = {
-            function()
-              if vim.wo.diff then
-                vim.cmd.normal { "]c", bang = true }
-              else
-                require("gitsigns").nav_hunk "next"
-              end
-            end,
-            desc = "Go to previous git hunk",
-          },
           ["gr"] = {
             function() vim.lsp.buf.references() end,
             desc = "Show references",
