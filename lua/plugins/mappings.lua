@@ -27,7 +27,9 @@ return {
           [",v"] = { "<C-v>", desc = "Enter visual block mode" },
           ["<C-i>"] = { "<C-i>", desc = "Next in jump list" },
           ["<left>"] = { "<cmd>:cp<cr>", desc = "Previous quickfix item" },
+          [",a"] = { "<cmd>:cp<cr>", desc = "Previous quickfix item" },
           ["<right>"] = { "<cmd>:cn<cr>", desc = "Next quickfix item" },
+          [",d"] = { "<cmd>:cn<cr>", desc = "Next quickfix item" },
           ------------------
 
           --- misc ---
@@ -60,10 +62,6 @@ return {
           ["zf7"] = { "<cmd>set foldlevel=7<cr>", desc = "Fold level 7" },
           ["zf8"] = { "<cmd>set foldlevel=8<cr>", desc = "Fold level 8" },
           ["zf9"] = { "<cmd>set foldlevel=9<cr>", desc = "Fold level 9" },
-          ["<left>"] = { "<cmd>:cp<cr>", desc = "Previous quickfix item" },
-          [",a"] = { "<cmd>:cp<cr>", desc = "Previous quickfix item" },
-          ["<right>"] = { "<cmd>:cn<cr>", desc = "Next quickfix item" },
-          [",d"] = { "<cmd>:cn<cr>", desc = "Next quickfix item" },
 
           --- run/build/make/test ---
           [",r"] = {
