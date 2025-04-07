@@ -93,4 +93,23 @@ vim.api.nvim_create_autocmd("DirChanged", {
 
 -- console.log variable
 local esc = vim.api.nvim_replace_termcodes("<Esc>", true, false, true)
-vim.fn.setreg("l", "oconsole.log('" .. esc .. "pa:', " .. esc .. "pa);" .. esc .. "")
+local enter = vim.api.nvim_replace_termcodes("<CR>", true, false, true)
+vim.fn.setreg("l", "oconsole.log('" .. esc .. "pa:', " .. esc .. "pa);" .. esc .. ";w" .. enter)
+
+-- toggle formatter
+vim.g.autoformat = true
+vim.api.nvim_create_user_command("ToggleFormatter", function()
+  vim.g.autoformat = not vim.g.autoformat
+  print("Autoformat: " .. (vim.g.autoformat and "Enabled" or "Disabled"))
+end, {})
+vim.keymap.set("n", "<leader>lF", ":ToggleFormatter<CR>", { desc = "Toggle Autoformat" })
+
+-- tsc error quickfix
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "typescript", "typescriptreact" },
+  command = "setlocal errorformat=%f(%l\\\\,%c):\\ error\\ %m",
+})
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "typescript", "typescriptreact" },
+  command = "setlocal makeprg=tsc\\ --noEmit\\ --pretty\\ false",
+})
