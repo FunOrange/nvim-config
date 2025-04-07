@@ -108,7 +108,9 @@ return {
           ["zf8"] = { "<cmd>set foldlevel=8<cr>", desc = "Fold level 8" },
           ["zf9"] = { "<cmd>set foldlevel=9<cr>", desc = "Fold level 9" },
           ["<left>"] = { "<cmd>:cp<cr>", desc = "Previous quickfix item" },
+          [",a"] = { "<cmd>:cp<cr>", desc = "Previous quickfix item" },
           ["<right>"] = { "<cmd>:cn<cr>", desc = "Next quickfix item" },
+          [",d"] = { "<cmd>:cn<cr>", desc = "Next quickfix item" },
 
           --- file shortcuts
           ["<C-p>"] = { function() require("telescope.builtin").find_files() end, desc = "Find files" },
