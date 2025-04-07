@@ -41,7 +41,7 @@ return {
               local worktree = astro.file_worktree()
               local flags = worktree and (" --work-tree=%s --git-dir=%s"):format(worktree.toplevel, worktree.gitdir)
                 or ""
-              astro.toggle_term_cmd("lazygit " .. flags)
+              astro.toggle_term_cmd { cmd = "lazygit " .. flags, direction = "float" }
             end,
             desc = "Open LazyGit in floating terminal",
           },
@@ -92,8 +92,9 @@ return {
               end
 
               local bufnr = find_untitled_buffer()
-              if bufnr then
+              if not bufnr then
                 -- If an "Untitled" buffer exists, use it
+                -- TODO: focus the buffer
               else
                 -- Otherwise, create a new buffer in a vertical split
                 vim.cmd "vnew Untitled.json"
