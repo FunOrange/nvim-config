@@ -64,6 +64,13 @@ return {
           ["zf9"] = { "<cmd>set foldlevel=9<cr>", desc = "Fold level 9" },
 
           --- run/build/make/test ---
+          [",m"] = {
+            function()
+              save_if_modified()
+              vim.cmd "make"
+            end,
+            desc = "make",
+          },
           [",r"] = {
             function()
               save_if_modified()
@@ -92,7 +99,7 @@ return {
               end
 
               local bufnr = find_untitled_buffer()
-              if not bufnr then
+              if bufnr then
                 -- If an "Untitled" buffer exists, use it
                 -- TODO: focus the buffer
               else
@@ -115,6 +122,11 @@ return {
           --- file/dir shortcuts ---
           ["<Leader>,"] = { ':execute "cd " .. stdpath("config")<cr>', desc = "cd to nvim config" },
           ["<C-p>"] = { function() require("telescope.builtin").find_files() end, desc = "Find files" },
+          ["?"] = {
+            function() require("telescope.builtin").current_buffer_fuzzy_find() end,
+            desc = "Search in current buffer",
+          },
+          ["gi"] = { function() vim.lsp.buf.incoming_calls() end, desc = "Go to incoming calls" },
           [",es"] = {
             function()
               local os_name = vim.loop.os_uname().sysname
