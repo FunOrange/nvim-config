@@ -43,6 +43,16 @@ return {
             end,
             desc = "Open LazyGit in floating terminal",
           },
+          [",j"] = {
+            function()
+              local astro = require "astrocore"
+              local worktree = astro.file_worktree()
+              local flags = worktree and (" --work-tree=%s --git-dir=%s"):format(worktree.toplevel, worktree.gitdir)
+                or ""
+              astro.toggle_term_cmd { cmd = "~/scripts/jc " .. flags, direction = "float" }
+            end,
+            desc = "Open Jenkins Checker in floating terminal",
+          },
           ["<F2>"] = { function() vim.lsp.buf.rename() end, desc = "Rename symbol" },
           ["<Leader>gf"] = { "<cmd>DiffviewFileHistory %<cr>", desc = "Show file history (git commits)" },
           ["gr"] = {
