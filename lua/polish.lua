@@ -70,17 +70,14 @@ vim.api.nvim_create_autocmd("DirChanged", {
 })
 
 -- console.log variable
-local esc = vim.api.nvim_replace_termcodes("<Esc>", true, false, true)
-local enter = vim.api.nvim_replace_termcodes("<CR>", true, false, true)
-vim.fn.setreg("l", "oconsole.log('" .. esc .. "pa:', " .. esc .. "pa);" .. esc .. ";w" .. enter)
 
 -- toggle formatter
-vim.g.autoformat = true
-vim.api.nvim_create_user_command("ToggleFormatter", function()
-  vim.g.autoformat = not vim.g.autoformat
-  print("Autoformat: " .. (vim.g.autoformat and "Enabled" or "Disabled"))
-end, {})
-vim.keymap.set("n", "<leader>lF", ":ToggleFormatter<CR>", { desc = "Toggle Autoformat" })
+-- vim.g.autoformat = true
+-- vim.api.nvim_create_user_command("ToggleFormatter", function()
+--   vim.g.autoformat = not vim.g.autoformat
+--   print("Autoformat: " .. (vim.g.autoformat and "Enabled" or "Disabled"))
+-- end, {})
+-- vim.keymap.set("n", "<leader>lF", ":ToggleFormatter<CR>", { desc = "Toggle Autoformat" })
 
 -- tsc error quickfix
 vim.api.nvim_create_autocmd("FileType", {
@@ -90,4 +87,32 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "typescript", "typescriptreact" },
   command = "setlocal makeprg=tsc\\ --noEmit\\ --pretty\\ false",
+})
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "typescript", "typescriptreact" },
+  callback = function()
+    local esc = vim.api.nvim_replace_termcodes("<Esc>", true, false, true)
+    local enter = vim.api.nvim_replace_termcodes("<CR>", true, false, true)
+    vim.fn.setreg("l", "oconsole.log('" .. esc .. "pa:', " .. esc .. "pa);" .. esc .. ";w" .. enter)
+  end,
+})
+
+local function save_if_modified()
+  if vim.bo.modified then vim.cmd "write" end
+end
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "go" },
+  callback = function()
+    local esc = vim.api.nvim_replace_termcodes("<Esc>", true, false, true)
+    local enter = vim.api.nvim_replace_termcodes("<CR>", true, false, true)
+    vim.fn.setreg("l", 'ofmt.Printf("%+v\\n", ' .. esc .. "pa)" .. esc .. ";w" .. enter)
+    vim.keymap.set("n", ",r", function()
+      save_if_modified()
+      vim.cmd "!go run ."
+    end, { desc = "go run" })
+    vim.keymap.set("n", ",t", function()
+      save_if_modified()
+      vim.cmd "!go test ./..."
+    end, { desc = "go test (all)" })
+  end,
 })
