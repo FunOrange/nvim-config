@@ -106,13 +106,15 @@ vim.api.nvim_create_autocmd("FileType", {
     local esc = vim.api.nvim_replace_termcodes("<Esc>", true, false, true)
     local enter = vim.api.nvim_replace_termcodes("<CR>", true, false, true)
     vim.fn.setreg("l", 'ofmt.Printf("%+v\\n", ' .. esc .. "pa)" .. esc .. ";w" .. enter)
+
     vim.keymap.set("n", ",r", function()
       save_if_modified()
       vim.cmd "!go run ."
     end, { desc = "go run" })
+
     vim.keymap.set("n", ",t", function()
       save_if_modified()
-      vim.cmd "!go test ./..."
+      vim.cmd "!go test ./... -v"
     end, { desc = "go test (all)" })
   end,
 })
