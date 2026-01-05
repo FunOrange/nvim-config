@@ -2,6 +2,10 @@ return {
   "rebelot/heirline.nvim",
   opts = function()
     local status = require "astroui.status"
+    local buffer = require("astrocore.buffer")
+    local safe_is_valid = function(buf)
+      return type(buf) == "number" and buffer.is_valid(buf)
+    end
     local ui_config = require("astroui").config
 
     local file_path_component = {
@@ -18,7 +22,7 @@ return {
           local enabled = vim.tbl_get(ui_config, "status", "winbar", "enabled")
           if enabled and status.condition.buffer_matches(enabled, args.buf) then return false end
           local disabled = vim.tbl_get(ui_config, "status", "winbar", "enabled")
-          return not require("astrocore.buffer").is_valid(args.buf)
+          return not safe_is_valid(args.buf)
             or (disabled and status.condition.buffer_matches(disabled, args.buf))
         end,
       },
@@ -63,7 +67,7 @@ return {
             self.winid = vim.api.nvim_tabpage_list_wins(0)[1]
             self.winwidth = vim.api.nvim_win_get_width(self.winid)
             return self.winwidth ~= vim.o.columns -- only apply to sidebars
-              and not require("astrocore.buffer").is_valid(vim.api.nvim_win_get_buf(self.winid)) -- if buffer is not in tabline
+              and not safe_is_valid(vim.api.nvim_win_get_buf(self.winid)) -- if buffer is not in tabline
           end,
           provider = function(self) return (" "):rep(self.winwidth + 1) end,
           hl = { bg = "tabline_bg" },
