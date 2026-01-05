@@ -122,4 +122,18 @@ vim.api.nvim_create_autocmd("FileType", {
 if vim.g.neovide then
   -- Put anything you want to happen only in Neovide here
   vim.o.guifont = "IosevkaTermSlab Nerd Font Mono:h18"
+  vim.g.neovide_input_use_logo = 1 -- for pasting to work
+
+  vim.g.neovide_cursor_animation_length = 0.065 -- Cursor: 130ms → 65ms
+  vim.g.neovide_scroll_animation_length = 0.075 -- Scroll: 150ms → 75ms
+  vim.g.neovide_window_animation_length = 0.1 -- Windows: 200ms → 100ms
+
+  vim.g.neovide_floating_blur_amount = 0.25 -- Half default blur
+  vim.g.neovide_floating_shadow = 0.5 -- Half default shadow
 end
+
+-- Recommended mappings for Cmd+V (Paste)
+vim.keymap.set("n", "<D-v>", '"<C-r>+"<CR>', { noremap = true, silent = true }) -- Paste in Normal mode (after cursor)
+vim.keymap.set("v", "<D-v>", '"<C-r>+"', { noremap = true, silent = true }) -- Paste in Visual mode (replace selection)
+vim.keymap.set("c", "<D-v>", "<C-r>+", { noremap = true, silent = true }) -- Paste in Command-line mode
+vim.keymap.set("i", "<D-v>", "<C-r>+", { noremap = true, silent = true }) -- Paste in Insert mode (pasting text)
