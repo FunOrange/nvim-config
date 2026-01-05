@@ -3,11 +3,10 @@ return {
     "catppuccin/nvim",
     name = "catppuccin",
     opts = {
-      transparent_background = true,
       dim_inactive = {
         enabled = true,
         shade = "dark",
-        percentage = 0.50,
+        percentage = 0.00,
       },
       -- highlight_overrides = {
       --   mocha = function(c)
