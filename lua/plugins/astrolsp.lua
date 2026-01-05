@@ -29,10 +29,12 @@ return {
       },
       disabled = { -- disable formatting capabilities for the listed language servers
         -- disable lua_ls formatting capability if you want to use StyLua to format your lua code
-        "jsonls",
-        "eslint",
-        "vtsls",
-        "tsserver",
+        "lua_ls",
+        "stylua",
+        "jsonls", -- let prettier handle formatting
+        "eslint", -- let prettier handle formatting
+        "vtsls", -- let prettier handle formatting
+        "tsserver", -- let prettier handle formatting
       },
       timeout_ms = 1000, -- default format timeout
       filter = function(client) -- fully override the default formatting function
