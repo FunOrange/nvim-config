@@ -28,6 +28,9 @@ return {
   {
     "williamboman/mason-lspconfig.nvim",
     -- overrides `require("mason-lspconfig").setup(...)`
-    opts = function(_, opts) remove_string_from_list(opts.ensure_installed, "emmet_ls") end,
+    opts = function(_, opts)
+      remove_string_from_list(opts.ensure_installed, "emmet_ls")
+      remove_string_from_list(opts.ensure_installed, "lua_ls")
+    end,
   },
 }
