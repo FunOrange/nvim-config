@@ -118,3 +118,8 @@ vim.api.nvim_create_autocmd("FileType", {
     end, { desc = "go test (all)" })
   end,
 })
+
+if vim.g.neovide then
+  -- Put anything you want to happen only in Neovide here
+  vim.o.guifont = "IosevkaTermSlab Nerd Font Mono:h18"
+end
