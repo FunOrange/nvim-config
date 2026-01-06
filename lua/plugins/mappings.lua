@@ -130,6 +130,7 @@ return {
           --------------------
 
           --- file/dir shortcuts ---
+          ["cd"] = { ":Telescope workspaces<cr>", desc = "change workspace" },
           ["<Leader>,"] = { ':execute "cd " .. stdpath("config")<cr>', desc = "cd to nvim config" },
           ["<C-p>"] = { function() require("telescope.builtin").find_files() end, desc = "Find files" },
           ["?"] = {
