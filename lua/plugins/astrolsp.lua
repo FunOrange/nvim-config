@@ -91,7 +91,9 @@ return {
       -- function(server, opts) require("lspconfig")[server].setup(opts) end
 
       -- the key is the server that is being setup with `lspconfig`
-      lua_ls = false, -- setting a handler to false will disable the set up of that language server
+      -- lua_ls = false, -- setting a handler to false will disable the set up of that language server
+      vtsls = false, -- prioritize tsgo
+      tsserver = false, -- prioritize tsgo
       -- pyright = function(_, opts) require("lspconfig").pyright.setup(opts) end -- or a custom handler function can be passed
     },
     -- Configure buffer local auto commands to add when attaching a language server

@@ -137,3 +137,5 @@ vim.keymap.set("n", "<D-v>", '"<C-r>+"<CR>', { noremap = true, silent = true }) 
 vim.keymap.set("v", "<D-v>", '"<C-r>+"', { noremap = true, silent = true }) -- Paste in Visual mode (replace selection)
 vim.keymap.set("c", "<D-v>", "<C-r>+", { noremap = true, silent = true }) -- Paste in Command-line mode
 vim.keymap.set("i", "<D-v>", "<C-r>+", { noremap = true, silent = true }) -- Paste in Insert mode (pasting text)
+
+vim.lsp.enable "tsgo"
