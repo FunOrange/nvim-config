@@ -30,6 +30,32 @@ return {
           [",d"] = { "<cmd>:cn<cr>", desc = "Next quickfix item" },
           ------------------
 
+          --- lsp ---
+          ["<Leader>k"] = {
+            function() vim.lsp.buf.hover() end,
+            desc = "Hover symbol details",
+          },
+          ["gd"] = {
+            function() require("telescope.builtin").lsp_definitions() end,
+            desc = "Go to Definition",
+          },
+          ["gD"] = {
+            function() vim.lsp.buf.declaration() end,
+            desc = "Declaration of current symbol",
+          },
+          ["gr"] = {
+            function() require("telescope.builtin").lsp_references() end,
+            desc = "Go to References",
+          },
+          ["gi"] = {
+            function() require("telescope.builtin").lsp_incoming_calls() end,
+            desc = "Go to Incoming Calls",
+          },
+          ["gI"] = {
+            function() require("telescope.builtin").lsp_implementations() end,
+            desc = "Go to Implementation",
+          },
+
           --- misc ---
           ["<C-CR>"] = {
             function()
@@ -65,10 +91,6 @@ return {
           },
           ["<F2>"] = { function() vim.lsp.buf.rename() end, desc = "Rename symbol" },
           ["<Leader>gf"] = { "<cmd>DiffviewFileHistory %<cr>", desc = "Show file history (git commits)" },
-          ["gr"] = {
-            function() vim.lsp.buf.references() end,
-            desc = "Show references",
-          },
           ["<Leader>G"] = { [[:let @+ = expand('%:~:.')<cr>]], desc = "Yank current file path" },
           ["zf0"] = { "zR", desc = "Reset folds" },
           ["zf1"] = { "<cmd>set foldlevel=1<cr>", desc = "Fold level 1" },
@@ -145,7 +167,6 @@ return {
             function() require("telescope.builtin").current_buffer_fuzzy_find() end,
             desc = "Search in current buffer",
           },
-          ["gi"] = { function() vim.lsp.buf.incoming_calls() end, desc = "Go to incoming calls" },
           [",es"] = {
             function()
               local os_name = vim.loop.os_uname().sysname
@@ -183,27 +204,6 @@ return {
         },
         t = {
           ["<F1>"] = { "<C-\\><C-n>:ToggleTerm direction=float<cr>", desc = "npm run dev" },
-        },
-      },
-    },
-  },
-  {
-    "AstroNvim/astrolsp",
-    ---@type AstroLSPOpts
-    opts = {
-      mappings = {
-        n = {
-          -- this mapping will only be set in buffers with an LSP attached
-          ["<Leader>k"] = {
-            function() vim.lsp.buf.hover() end,
-            desc = "Hover symbol details",
-          },
-          -- condition for only server with declaration capabilities
-          gD = {
-            function() vim.lsp.buf.declaration() end,
-            desc = "Declaration of current symbol",
-            cond = "textDocument/declaration",
-          },
         },
       },
     },
