@@ -10,11 +10,11 @@ return {
       mappings = {
         n = {
           --- navigation ---
-          ["gt"] = {
+          ["<Tab>"] = {
             function() require("astrocore.buffer").nav(vim.v.count1) end,
             desc = "Next buffer",
           },
-          ["gT"] = {
+          ["<S-Tab>"] = {
             function() require("astrocore.buffer").nav(-vim.v.count1) end,
             desc = "Previous buffer",
           },
@@ -26,13 +26,21 @@ return {
           ["Q"] = { "@q", desc = "Quick execute macro" },
           [",v"] = { "<C-v>", desc = "Enter visual block mode" },
           ["<C-i>"] = { "<C-i>", desc = "Next in jump list" },
-          ["<left>"] = { "<cmd>:cp<cr>", desc = "Previous quickfix item" },
           [",a"] = { "<cmd>:cp<cr>", desc = "Previous quickfix item" },
-          ["<right>"] = { "<cmd>:cn<cr>", desc = "Next quickfix item" },
           [",d"] = { "<cmd>:cn<cr>", desc = "Next quickfix item" },
           ------------------
 
           --- misc ---
+          ["<C-CR>"] = {
+            function()
+              if vim.bo.filetype == "qf" then
+                vim.cmd "wincmd p"
+                vim.cmd "cc"
+                require("astrocore.buffer").move(1)
+              end
+            end,
+            desc = "QF item: Open in main pane (prev win) + move buf to bufferline start",
+          },
           ["<F1>"] = { ":ToggleTerm direction=float<cr>", desc = "Toggle floating terminal" },
           ["<Leader>gg"] = false, -- ,g is the only way to open lazygit
           [",g"] = {
